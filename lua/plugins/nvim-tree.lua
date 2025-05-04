@@ -1,3 +1,50 @@
+
+local function on_attach(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  local function move_file_to()
+     local node = api.tree.get_node_under_cursor()
+     local file_src = node['absolute_path']
+     local file_out = vim.fn.input("MOVE TO: ", file_src, "file")
+     local dir = vim.fn.fnamemodify(file_out, ":h")
+     vim.fn.system { 'mkdir', '-p', dir }
+     vim.fn.system { 'mv',  file_src, file_out }
+  end
+
+  vim.keymap.set("n", "<CR>", function()
+    local node = api.tree.get_node_under_cursor()
+    if vim.fn.isdirectory(node.absolute_path) == 1 then
+      return api.tree.change_root_to_node(node)
+    else
+      return api.node.open.edit(node)
+    end
+  end, opts("edit_cd"))
+
+  -- Toggle directory/Open File under cursor
+  vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
+   vim.keymap.set('n', 'mm', move_file_to, opts('Move File To'))
+  vim.keymap.set("n", "ma", api.fs.create, opts("Create"))
+  vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
+  vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
+
+  -- vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+  -- vim.keymap.set("n", "<Esc>", api.tree.close, opts("Close"))
+  -- vim.keymap.set("n", "<Right>", api.node.open.edit, opts("Open"))
+  -- vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+  -- vim.keymap.set("n", "<Left>", api.node.navigate.parent_close, opts("Close Directory"))
+  -- vim.keymap.set("n", "mm", api.fs.rename, opts("Rename"))
+  -- vim.keymap.set("n", "++", api.node.navigate.git.next, opts("Next Git"))
+  -- vim.keymap.set("n", "--", api.node.navigate.git.prev, opts("Prev Git"))
+  -- vim.keymap.set("n", "o", api.node.open.preview, opts("Open Preview"))
+  -- vim.keymap.set("n", "za", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+  -- vim.keymap.set("n", "zi", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
+  -- vim.keymap.set("n", "K", api.node.show_info_popup, opts("Info"))
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   version = "*",
@@ -7,12 +54,27 @@ return {
   },
   config = function()
     require("nvim-tree").setup(
-      {
-        filters = {
-          dotfiles = false,
-          git_ignored = false
+        {
+            view = { adaptive_size = true },
+            update_focused_file = { enable = true },
+            on_attach = on_attach,
+
+            ---markers
+            renderer = {
+              indent_markers = { enable = true },
+              indent_width = 2,
+              special_files = {},
+            },
+            diagnostics = { enable = false },
+            git = { enable = false },
+
+            ---- filters
+            filters = {
+              dotfiles = true,
+              git_ignored = false,
+              -- custom = { "^__pycache__" },
+            }
         }
-      }
     )
 
     -- Open or close the tree. See |nvim-tree-api.tree.toggle()|
@@ -25,3 +87,4 @@ return {
     -- vim.keymap.set('n', '<\\e>', NvimTreeToggle, {})
   end,
 }
+

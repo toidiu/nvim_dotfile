@@ -61,13 +61,21 @@ return {
         "stevearc/conform.nvim",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        -- Completing framework:
+        "hrsh7th/nvim-cmp",
+        -- LSP completion source:
         "hrsh7th/cmp-nvim-lsp",
+        -- Other completion sources:
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-vsnip",
         -- "L3MON4D3/LuaSnip",
         -- "saadparwaiz1/cmp_luasnip",
+
+        -- https://github.com/j-hui/fidget.nvim
+        -- Extensible UI for LSP progress
         "j-hui/fidget.nvim",
     },
 
@@ -147,18 +155,30 @@ return {
             --     end,
             -- },
             mapping = cmp.mapping.preset.insert({
-                ['<C-j>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-k>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<S-Tab>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
-                -- { name = "copilot", group_index = 2 },
                 { name = 'nvim_lsp' },
+                { name = 'nvim_lsp_signature_help' },
+                { name = 'vsnip' },
+                -- { name = "copilot", group_index = 2 },
                 -- { name = 'luasnip' }, -- For luasnip users.
             }, {
                 { name = 'buffer' },
-            })
+            }),
+	          sorting = {
+	              comparators = {
+	          	  	  cmp.config.compare.offset,
+	          	  	  cmp.config.compare.exact,
+	          	  	  cmp.config.compare.score,
+	          	  	  cmp.config.compare.recently_used,
+	          	  	  -- require("cmp-under-comparator").under,
+	          	  	  cmp.config.compare.kind,
+	          	  },
+	          },
         })
 
         vim.diagnostic.config({
