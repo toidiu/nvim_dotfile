@@ -1,0 +1,12 @@
+-- return {
+--   "nvim-tree/nvim-tree.lua",
+--   opts = { on_attach = on_attach_change },
+--   cmd = {
+--       "NvimTreeToggle",
+--   },
+--   keys = {
+--     -- customize toggle
+--     -- https://github.com/nvim-tree/nvim-tree.lua/discussions/2911
+--     { "<Leader>e", "<cmd>NvimTreeFindFile<CR>" }
+--   }
+-- }
