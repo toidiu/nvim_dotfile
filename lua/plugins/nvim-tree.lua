@@ -6,6 +6,7 @@ local function on_attach(bufnr)
     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
+  -- Source: https://github.com/nvim-tree/nvim-tree.lua/discussions/2292#discussioncomment-6271971
   local function move_file_to()
      local node = api.tree.get_node_under_cursor()
      local file_src = node['absolute_path']
@@ -76,15 +77,6 @@ return {
             }
         }
     )
-
-    -- Open or close the tree. See |nvim-tree-api.tree.toggle()|
-    -- Calls: `api.tree.toggle({
-    --   path = "<args>", find_file = false, update_root = false, focus = true,
-    -- })`
-
-    -- vim.keymap.set('n', '<C-t>', api.tree.toggle, {})
-
-    -- vim.keymap.set('n', '<\\e>', NvimTreeToggle, {})
   end,
 }
 
