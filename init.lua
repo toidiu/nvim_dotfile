@@ -1,15 +1,3 @@
--- require('plugins')
--- require('basic-plugins')
--- require('completion')
--- require('colorscheme')
--- require('keybinds')
--- require('options')
--- require('lsp')
--- require('treesitter')
--- require('telescope')
--- require('gutentags')
--- require('autocmd')
-
 -- required for nvim-tree to prevent netrw hijacking
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1

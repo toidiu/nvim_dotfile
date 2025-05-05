@@ -15,8 +15,8 @@ return {
     local builtin = require('telescope.builtin')
 
     vim.keymap.set('n', ';', builtin.buffers, {})
-    -- vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-    vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+    vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+    -- vim.keymap.set('n', '<C-p>', builtin.git_files, {})
     vim.keymap.set('n', '<C-a>', builtin.live_grep, {})
 
     -- search word under cursor

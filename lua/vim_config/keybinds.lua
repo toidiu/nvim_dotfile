@@ -18,15 +18,16 @@ keymap('n', 'F', ':resize +5 <CR>', opts)
 
 -- File ----------
 -- undo
-keymap('i', '<C-z>', '<Esc><Undo>', opts)
-keymap('n', '<C-z>', '<Undo>', opts)
+-- keymap('i', '<C-z>', '<Esc><Undo>', opts)
+-- keymap('n', '<C-z>', '<Undo>', opts)
 -- quit
 keymap('i', '<C-d>', '<Esc>:q<CR>', opts)
 keymap('n', '<C-d>', ':q<CR>', opts)
 -- save
 keymap('i', '<C-s>', '<Esc>:w<CR>', opts)
 keymap(mode_nv, '<C-s>', ':w<CR>', opts)
-
+-- nvim-tree toggle
+keymap('n', '\\e', ':NvimTreeToggle<CR>', opts)
 
 -- Move same term -----------
 -- braces
@@ -50,17 +51,14 @@ keymap('n', '<C-h>', '<C-W>h', opts)
 -- noremap <C-l> <C-W>l
 keymap('n', '<C-l>', '<C-W>l', opts)
 
--- nvim-tree toggle
-keymap('n', '\\e', ':NvimTreeToggle<CR>', opts)
+-- local t = function(str)
+--   return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col('.') - 1
-  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
+-- local check_back_space = function()
+--   local col = vim.fn.col('.') - 1
+--   return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+-- end
 
 -- Use (s-)tab to:
 --- move to prev/next item in completion menuone

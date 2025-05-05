@@ -15,6 +15,21 @@ local function on_attach(bufnr)
     vim.fn.system { 'mv', file_src, file_out }
   end
 
+
+  -- Source: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#nerdtree-style-copy-file-to
+  local function copy_file_to()
+    local node = api.tree.get_node_under_cursor()
+    local file_src = node['absolute_path']
+    -- The args of input are {prompt}, {default}, {completion}
+    -- Read in the new file path using the existing file's path as the baseline.
+    local file_out = vim.fn.input("COPY TO: ", file_src, "file")
+    -- Create any parent dirs as required
+    local dir = vim.fn.fnamemodify(file_out, ":h")
+    vim.fn.system { 'mkdir', '-p', dir }
+    -- Copy the file
+    vim.fn.system { 'cp', '-R', file_src, file_out }
+  end
+
   vim.keymap.set("n", "<CR>", function()
     local node = api.tree.get_node_under_cursor()
     if vim.fn.isdirectory(node.absolute_path) == 1 then
@@ -27,8 +42,8 @@ local function on_attach(bufnr)
   -- Toggle directory/Open File under cursor
   vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
   vim.keymap.set('n', 'mm', move_file_to, opts('Move File To'))
+  vim.keymap.set("n", "mc", copy_file_to, opts("Copy"))
   vim.keymap.set("n", "ma", api.fs.create, opts("Create"))
-  vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
   vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
 
   -- vim.keymap.set("n", "q", api.tree.close, opts("Close"))
