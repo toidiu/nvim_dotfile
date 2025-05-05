@@ -13,6 +13,8 @@ keymap('n', '<Leader>q', ':bd<CR>', opts)
 -- Splits ----------
 keymap('n', '<Leader>v', ':vsplit<CR>', opts)
 keymap('n', '<Leader>s', ':split<CR>', opts)
+keymap('n', 'f', ':vertical resize +10 <CR>', opts)
+keymap('n', 'F', ':resize +5 <CR>', opts)
 
 -- File ----------
 -- undo
@@ -56,8 +58,8 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+  local col = vim.fn.col('.') - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
 -- Use (s-)tab to:
@@ -89,4 +91,3 @@ end
 -- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-

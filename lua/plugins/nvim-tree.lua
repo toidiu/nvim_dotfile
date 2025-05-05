@@ -1,4 +1,3 @@
-
 local function on_attach(bufnr)
   local api = require("nvim-tree.api")
 
@@ -8,12 +7,12 @@ local function on_attach(bufnr)
 
   -- Source: https://github.com/nvim-tree/nvim-tree.lua/discussions/2292#discussioncomment-6271971
   local function move_file_to()
-     local node = api.tree.get_node_under_cursor()
-     local file_src = node['absolute_path']
-     local file_out = vim.fn.input("MOVE TO: ", file_src, "file")
-     local dir = vim.fn.fnamemodify(file_out, ":h")
-     vim.fn.system { 'mkdir', '-p', dir }
-     vim.fn.system { 'mv',  file_src, file_out }
+    local node = api.tree.get_node_under_cursor()
+    local file_src = node['absolute_path']
+    local file_out = vim.fn.input("MOVE TO: ", file_src, "file")
+    local dir = vim.fn.fnamemodify(file_out, ":h")
+    vim.fn.system { 'mkdir', '-p', dir }
+    vim.fn.system { 'mv', file_src, file_out }
   end
 
   vim.keymap.set("n", "<CR>", function()
@@ -27,7 +26,7 @@ local function on_attach(bufnr)
 
   -- Toggle directory/Open File under cursor
   vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
-   vim.keymap.set('n', 'mm', move_file_to, opts('Move File To'))
+  vim.keymap.set('n', 'mm', move_file_to, opts('Move File To'))
   vim.keymap.set("n", "ma", api.fs.create, opts("Create"))
   vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
   vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
@@ -55,28 +54,27 @@ return {
   },
   config = function()
     require("nvim-tree").setup(
-        {
-            view = { adaptive_size = true },
-            update_focused_file = { enable = true },
-            on_attach = on_attach,
+      {
+        view = { adaptive_size = true },
+        update_focused_file = { enable = true },
+        on_attach = on_attach,
 
-            ---markers
-            renderer = {
-              indent_markers = { enable = true },
-              indent_width = 2,
-              special_files = {},
-            },
-            diagnostics = { enable = false },
-            git = { enable = false },
+        ---markers
+        renderer = {
+          indent_markers = { enable = true },
+          indent_width = 2,
+          special_files = {},
+        },
+        diagnostics = { enable = false },
+        git = { enable = false },
 
-            ---- filters
-            filters = {
-              dotfiles = true,
-              git_ignored = false,
-              -- custom = { "^__pycache__" },
-            }
+        ---- filters
+        filters = {
+          dotfiles = true,
+          git_ignored = false,
+          -- custom = { "^__pycache__" },
         }
+      }
     )
   end,
 }
-
