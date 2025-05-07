@@ -1,13 +1,5 @@
--- Configuration for LSP diagnostics
--- vim.diagnostic.config({
---   virtual_text = false, -- Turn off inline diagnostics
---   signs = true,
---   update_in_insert = false,
---   underline = true,
---   severity_sort = true,
---   float = { focusable = false, style = "minimal", border = "rounded", source = "always", header = "", prefix = "" }
--- })
 
+-- OnAttach
 local base_on_attach = function(_, bufnr)
 	-- Format on save
 	vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
@@ -46,15 +38,7 @@ local base_on_attach = function(_, bufnr)
 	-- -- buf_set_keymap("gs", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 end
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
--- local base_lsp = {
---   on_attach = base_on_attach,
---   capabilities = capabilities
--- }
-
--- ------------------
-
+------------------
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -99,7 +83,8 @@ return {
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
-				-- "lua_ls",
+				"lua_ls",
+				-- Docs: https://rust-analyzer.github.io/book/configuration.html
 				"rust_analyzer",
 				"gopls",
 			},
@@ -127,25 +112,42 @@ return {
 				--     vim.g.zig_fmt_autosave = 0
 
 				-- end,
-				-- ["lua_ls"] = function()
-				--     local lspconfig = require("lspconfig")
-				--     lspconfig.lua_ls.setup {
-				--         capabilities = capabilities,
-				--         settings = {
-				--             Lua = {
-				--                 format = {
-				--                     enable = true,
-				--                     -- Put format options here
-				--                     -- NOTE: the value should be STRING!!
-				--                     defaultConfig = {
-				--                         indent_style = "space",
-				--                         indent_size = "2",
-				--                     }
-				--                 },
-				--             }
-				--         }
-				--     }
-				-- end,
+				["lua_ls"] = function()
+				    local lspconfig = require("lspconfig")
+				    lspconfig.lua_ls.setup {
+				        capabilities = capabilities,
+				        settings = {
+				            Lua = {
+				                format = {
+				                    enable = true,
+				                    -- Put format options here
+				                    -- NOTE: the value should be STRING!!
+				                    defaultConfig = {
+				                        indent_style = "space",
+				                        indent_size = "2",
+				                    }
+				                },
+				            }
+				        }
+				    }
+				end,
+
+				["rust_analyzer"] = function()
+					local lspconfig = require("lspconfig")
+					lspconfig.rust_analyzer.setup({
+						capabilities = capabilities,
+						on_attach = base_on_attach,
+						settings = {
+							["rust-analyzer"] = {
+								rustfmt = {
+								  -- https://rust-analyzer.github.io/book/configuration.html#rustfmt.extraArgs
+								  extraArgs = { "+nightly", },
+								},
+							},
+						},
+					})
+				end,
+
 			}
 		})
 
@@ -158,8 +160,8 @@ return {
 			--     end,
 			-- },
 			mapping = cmp.mapping.preset.insert({
-				['<Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-				['<S-Tab>'] = cmp.mapping.select_next_item(cmp_select),
+				['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+				['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
 				['<CR>'] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
 			}),
