@@ -65,7 +65,8 @@ return {
   version = "*",
   lazy = false,
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    -- Disable file icons to increase focus
+    -- "nvim-tree/nvim-web-devicons",
   },
   config = function()
     require("nvim-tree").setup(
@@ -79,9 +80,17 @@ return {
           indent_markers = { enable = true },
           indent_width = 2,
           special_files = {},
+
+          icons = {
+            show = {
+              file = false,
+            },
+          },
+
         },
         diagnostics = { enable = false },
         git = { enable = false },
+
 
         ---- filters
         filters = {
