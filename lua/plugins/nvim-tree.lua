@@ -45,6 +45,7 @@ local function on_attach(bufnr)
   vim.keymap.set("n", "mc", copy_file_to, opts("Copy"))
   vim.keymap.set("n", "ma", api.fs.create, opts("Create"))
   vim.keymap.set("n", "md", api.fs.remove, opts("Delete"))
+  vim.keymap.set("n", "mg", api.tree.toggle_hidden_filter, opts("Toggle Git Ignore"))
 
   -- vim.keymap.set("n", "q", api.tree.close, opts("Close"))
   -- vim.keymap.set("n", "<Esc>", api.tree.close, opts("Close"))
@@ -55,9 +56,9 @@ local function on_attach(bufnr)
   -- vim.keymap.set("n", "++", api.node.navigate.git.next, opts("Next Git"))
   -- vim.keymap.set("n", "--", api.node.navigate.git.prev, opts("Prev Git"))
   -- vim.keymap.set("n", "o", api.node.open.preview, opts("Open Preview"))
-  -- vim.keymap.set("n", "za", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
-  -- vim.keymap.set("n", "zi", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
   -- vim.keymap.set("n", "K", api.node.show_info_popup, opts("Info"))
+  -- vim.keymap.set("n", "zi", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
+  -- vim.keymap.set("n", "vh", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
 end
 
 return {
@@ -70,6 +71,7 @@ return {
   },
   config = function()
     require("nvim-tree").setup(
+      -- Docs: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
       {
         view = { adaptive_size = true },
         update_focused_file = { enable = true },
@@ -82,6 +84,7 @@ return {
           special_files = {},
 
           icons = {
+          symlink_arrow = " -> ",
             show = {
               file = false,
             },

@@ -1,13 +1,42 @@
 -- vim.g.mapleader = " "
 
-vim.opt.expandtab = true
+-- Number of spaces that a <Tab> in the file counts for
 vim.opt.tabstop = 2
+-- Number of spaces to use for each step of (auto)indent
 vim.opt.shiftwidth = 2
-vim.opt.textwidth = 100
-vim.opt.termguicolors = true
+-- Number of spaces that a <Tab> counts for while performing editing operations
+vim.opt.softtabstop = 2
+-- tabs expanded to spaces
+vim.opt.expandtab = true
+-- Do smart autoindenting when starting a new line
+vim.opt.smartindent = true
+-- Copy indent from current line when starting a new line
+vim.opt.autoindent = true
+
+-- When a bracket is inserted, briefly jump to the matching one
+vim.opt.showmatch = true
+-- text width to wrap on
+vim.opt.textwidth = 80
+-- show line numbers
 vim.opt.number = true
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 5
+
+-- Show tab characters, trailing whitespace
+vim.opt.listchars:append {
+	tab = ">-",
+	trail = "~",
+	extends = ">",
+	precedes = "<",
+}
+
+-- set list "Show tabs as CTRL-I is displayed, display $ after end of line
+vim.opt.list = true
+
+vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.wrap = true
+
 
 vim.opt.cmdheight = 2
 
