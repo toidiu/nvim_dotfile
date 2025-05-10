@@ -24,10 +24,10 @@ vim.opt.scrolloff = 5
 
 -- Show tab characters, trailing whitespace
 vim.opt.listchars:append {
-	tab = ">-",
-	trail = "~",
-	extends = ">",
-	precedes = "<",
+  tab = ">-",
+  trail = "~",
+  extends = ">",
+  precedes = "<",
 }
 
 -- set list "Show tabs as CTRL-I is displayed, display $ after end of line
