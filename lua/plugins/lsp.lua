@@ -1,3 +1,6 @@
+-- TODO
+--   mason-lspconfig v2 migraiton:
+--   https://github.com/mason-org/mason-lspconfig.nvim/releases/tag/v2.0.0
 
 -- OnAttach
 local base_on_attach = function(_, bufnr)
