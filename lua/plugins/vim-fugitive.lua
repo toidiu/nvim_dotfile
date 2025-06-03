@@ -2,6 +2,7 @@ return {
   "tpope/vim-fugitive",
   config = function()
     vim.keymap.set("n", "<leader>g", vim.cmd.Git)
+    vim.keymap.set("n", "<leader>b", ":Git blame<CR>")
 
     local Toidiu_Fugitive = vim.api.nvim_create_augroup("Toidiu_Fugitive", {})
 

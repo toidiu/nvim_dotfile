@@ -147,6 +147,11 @@ return {
                   -- https://rust-analyzer.github.io/book/configuration.html#rustfmt.extraArgs
                   extraArgs = { "+nightly", },
                 },
+                check = {
+                  -- cargo clippy --features=ffi,qlog, -- -D warnings
+                  -- overrideCommand = { "cargo clippy --workspace --message-format=json --all-targets --features=ffi,qlog -- -D warnings" },
+                  -- overrideCommand = { "cargo clippy --workspace --message-format=json --features=ffi,qlog -- -D warnings" },
+                }
               },
             },
           })
