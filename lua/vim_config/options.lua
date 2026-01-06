@@ -72,3 +72,6 @@ vim.opt.cursorline = true
 -- vim.opt.hi = "CursorLine ctermbg=NONE cterm=underline"
 
 vim.api.nvim_set_hl(0, 'CursorLine', { underline = true })
+
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
