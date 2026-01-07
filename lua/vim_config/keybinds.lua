@@ -3,8 +3,9 @@ local opts = { noremap = true, silent = true }
 local mode_nv = { 'n', 'v' }
 
 -- Utility -----------
-keymap('n', '<Leader>p', ':set paste!<CR>:set paste?<CR>', opts)
-keymap('n', '<Leader>h', ':nohlsearch<CR>', opts)
+keymap('n', '<Leader>p', ':set paste!<CR>:set paste?<CR>', opts) -- toggle paster mode
+keymap('n', '<Leader>h', ':nohlsearch<CR>', opts) -- un-highlight
+keymap('n', 'fs', '1z=', opts) -- fix spelling, take first recommendation
 
 -- Buffer -----------
 keymap('n', '<C-e>', ':e#<CR>', opts)
