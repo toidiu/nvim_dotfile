@@ -41,6 +41,11 @@ keymap(mode_nv, '<S-K>', '<C-U>', opts)
 keymap(mode_nv, '<S-H>', 'b', opts)
 -- right
 keymap(mode_nv, '<S-L>', 'e', opts)
+-- visual block move and tab
+keymap('v', '<Down>', ":m '>+1<CR>gv=gv", opts)
+keymap('v', '<Up>', ":m '<-2<CR>gv=gv", opts)
+keymap('v', '<Tab>', ">gv", opts)
+keymap('v', '<S-Tab>', "<gv", opts)
 
 -- Move between term -----------
 -- noremap <C-j> <C-W>j

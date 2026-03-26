@@ -148,9 +148,18 @@ return {
                   extraArgs = { "+nightly", },
                 },
                 check = {
-                  -- cargo clippy --features=ffi,qlog, -- -D warnings
+                  -- overrideCommand = { "cargo check --message-format=json" },
+                  --
+                  -- no-default-features
+                  overrideCommand = { "cargo check --message-format=json --no-default-features" },
+                  --
+                  -- all-targets
+                  -- overrideCommand = { "cargo check --message-format=json --all-targets" },
+                  -- 
                   -- overrideCommand = { "cargo clippy --workspace --message-format=json --all-targets --features=ffi,qlog -- -D warnings" },
-                  -- overrideCommand = { "cargo clippy --workspace --message-format=json --features=ffi,qlog -- -D warnings" },
+                  --
+                  -- cargo clippy --features=ffi,qlog, -- -D warnings
+                  -- cargo check --workspace --message-format=json --all-targets
                 }
               },
             },
