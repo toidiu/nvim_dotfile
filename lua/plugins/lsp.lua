@@ -147,20 +147,18 @@ return {
                   -- https://rust-analyzer.github.io/book/configuration.html#rustfmt.extraArgs
                   extraArgs = { "+nightly", },
                 },
+                cargo = {
+                  allFeatures = true,
+                  allTargets = true,
+                },
                 check = {
+                  -- Default
+                  overrideCommand = { "cargo", "check", "--workspace", "--message-format=json", },
+                  -- Simple
                   -- overrideCommand = { "cargo check --message-format=json" },
-                  --
-                  -- no-default-features
-                  overrideCommand = { "cargo check --message-format=json --no-default-features" },
-                  --
-                  -- all-targets
-                  -- overrideCommand = { "cargo check --message-format=json --all-targets" },
-                  -- 
-                  -- overrideCommand = { "cargo clippy --workspace --message-format=json --all-targets --features=ffi,qlog -- -D warnings" },
-                  --
-                  -- cargo clippy --features=ffi,qlog, -- -D warnings
-                  -- cargo check --workspace --message-format=json --all-targets
-                }
+                  -- Ignore warnings
+                  -- overrideCommand = { "cargo", "check", "--workspace", "--message-format=json", "--", "-D", "warnings" },
+                },
               },
             },
           })
