@@ -55,7 +55,7 @@ vim.opt.whichwrap:append {
 }
 
 -- persistent undo
-vim.opt.undodir = "/Users/akothari/.local/share/nvim/undodir"
+vim.opt.undodir = "/home/toidiu/.local/share/nvim/undodir"
 vim.opt.undofile = true
 
 -- Don't pass messages to |ins-completion-menu|.
