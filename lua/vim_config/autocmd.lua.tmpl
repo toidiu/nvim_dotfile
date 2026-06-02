@@ -1,20 +1,14 @@
-vim.api.nvim_create_autocmd('BufReadPost', {
-  desc = 'Open file at the last position it was edited earlier',
-  group = misc_augroup,
-  pattern = '*',
-  command = 'silent! normal! g`"zv'
-})
-
-vim.api.nvim_create_autocmd({'BufLeave', 'FocusLost'}, {
-  desc = 'Auto save all buffers when focus is lost',
-  group = misc_augroup,
-  pattern = '*',
-  command = 'silent! wall'
-})
-
-vim.api.nvim_create_autocmd('BufWritePost', {
-  desc = 'Automatically run chezmoi apply when saving files in the chezmoi directory',
-  group = misc_augroup,
-  pattern = '{{.chezmoi.homeDir}}/.local/share/chezmoi/*',
-  command = '!chezmoi apply'
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Add space to commentstring",
+  callback = function()
+    local cs = vim.bo.commentstring
+    if not cs:match("%%s") then return end
+    if not cs:match(" %%s") then
+      cs = cs:gsub("%%s", " %%s")
+    end
+    if not cs:match("%%s ") then
+      cs = cs:gsub("%%s", "%%s ")
+    end
+    vim.bo.commentstring = cs
+  end,
 })
