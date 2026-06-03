@@ -158,7 +158,7 @@ return {
                 },
                 check = {
                   -- Default
-                  overrideCommand = { "cargo", "check", "--workspace", "--message-format=json", },
+                  overrideCommand = { "cargo", "check", "--workspace", "--tests", "--message-format=json", },
                   -- Simple
                   -- overrideCommand = { "cargo check --message-format=json" },
                   -- Ignore warnings
