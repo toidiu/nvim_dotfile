@@ -88,10 +88,9 @@ return {
       ensure_installed = {
         "clangd",
         "lua_ls",
-        "markdown",
         -- Docs: https://rust-analyzer.github.io/book/configuration.html
         "rust_analyzer",
-        "gopls",
+        -- "gopls",
       },
       auto_install = true,
       highlight = {
