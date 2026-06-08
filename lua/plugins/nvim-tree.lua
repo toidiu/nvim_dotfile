@@ -73,7 +73,7 @@ return {
     require("nvim-tree").setup(
       -- Docs: https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
       {
-        view = { adaptive_size = true },
+        view = { width = 35 },
         update_focused_file = { enable = true },
         on_attach = on_attach,
 
@@ -84,7 +84,13 @@ return {
           special_files = {},
 
           icons = {
-          symlink_arrow = " -> ",
+            glyphs = {
+              folder = {
+                arrow_closed = "+",
+                arrow_open = "-",
+              },
+            },
+            symlink_arrow = " -> ",
             show = {
               file = false,
             },

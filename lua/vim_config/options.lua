@@ -16,7 +16,7 @@ vim.opt.autoindent = true
 -- When a bracket is inserted, briefly jump to the matching one
 vim.opt.showmatch = true
 -- text width to wrap on
-vim.opt.textwidth = 80
+vim.opt.textwidth = 100
 -- show line numbers
 vim.opt.number = true
 -- Minimal number of screen lines to keep above and below the cursor.
